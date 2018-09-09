@@ -6,6 +6,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.PathSegment;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,6 +25,18 @@ public class LibraryController {
         return "Lots of Books";
     }
 
+    /**
+     * url to call http://localhost:8282/SampleRestEasyExample/rest/library/book/attributes;name=EJB%203.0;author=Bill%20Burke
+     *
+     * @param id
+     * @return
+     */
+    @Path("/book/{id}")
+    @GET
+    public String printBook(@PathParam("id") PathSegment id) {
+        return id.getMatrixParameters().toString();
+    }
+
     @Path("/books/{isbn}")
     @GET
     public String getBook(@PathParam("isbn") String isbn) {
@@ -38,6 +51,8 @@ public class LibraryController {
     public String getBook(@PathParam("isbn") String isbn, @QueryParam("name") String name) {
         return "Book with Id : " + isbn + " name : " + name;
     }
+
+
 
 
 }
